@@ -1,6 +1,9 @@
 """
 This code checks if two strings are valid anagram. 
-An anagram is a word, phrase, or name formed by rearranging the letters of another
+An anagram is a word, phrase, or name formed by rearranging the letters of another.
+
+Runtime: O(n)
+Space: O(n)
 """
 
 class Solution:
@@ -40,8 +43,8 @@ if __name__ == '__main__':
     sol = Solution()
 
     # Test strings
-    str_1 = 'cinema'
-    str_2 = 'icaman'
+    str_1 = 'rat'
+    str_2 = 'car'
 
     # Function call to check for valid anagram
     print(sol.is_anagram(str_1, str_2))
