@@ -35,5 +35,5 @@ class Solution:
 if __name__ == '__main__':
 
     sol = Solution()
-    nums = [1]
+    nums = [3, 4, 5, 1, 2]
     print(sol.find_min(nums))
