@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 This is the solution to LeetCode problem 206: 
-Reverse Linked List
+Reverse Singly-Linked List
 
 Runtime: O(n)
 """
