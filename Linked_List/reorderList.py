@@ -59,10 +59,13 @@ if __name__ == '__main__':
     head.next = ListNode(2)
     head.next.next = ListNode(3)
     head.next.next.next = ListNode(4)
-    #head.next.next.next.next = ListNode(5)
+    head.next.next.next.next = ListNode(5)
 
+    # Print original linked list
     head.print_nodes(head)
 
     sol = Solution()
     new_reordered_head = sol.reorderList(head)
+
+    # Print after reordering
     new_reordered_head.print_nodes(new_reordered_head)
