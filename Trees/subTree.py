@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 """
-This is the solution to LeetCode problem 100: 
+This is the solution to LeetCode problem 572: 
 Check if two binary trees are thesame.
 
 NB: Jump to the Solution class for answer to the problem.
-Runtime: O(p+q)
+Runtime: O(s*q)
 """
+# Import isSameTree as a helper function
+from sameTree import Solution
 
 class TreeNode():
 
@@ -47,35 +49,37 @@ class TreeNode():
         self.preorderTree(root.left)
         self.preorderTree(root.right)
 
-class Solution:
+class Solution1:
 
-    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+    def isSubtree(self, root: TreeNode, subRoot: TreeNode) -> bool:
         # Base cases
-        if not p and not q:
-            return True # Empty nodes are thesame
-        if (not p or not q) or (p.val != q.val):
+        if not subRoot:
+            return True
+        if not root:
             return False
-        
-        # Recurse and return
-        return (self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right))
-             
-        
+        # Check if they are same tree
+        # Call the isSameTree() helper function from the Solution class
+        sol = Solution() 
+        if sol.isSameTree(root, subRoot):
+            return True
+        # Continue to check the children of root
+        return (self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot))   
 
 # Driver code
 if __name__ == '__main__':
 
     # Arrays
-    p_arr = [1, 2, 3]
-    q_arr = [1, 2, 3]
+    root_arr = [3, 4, 5, 1, 2]
+    subRoot_arr = [4, 1, 2]
     # Tree Nodes
     treeObj = TreeNode()
-    p = treeObj.insertLevelOrder(p_arr, len(p_arr))
-    q = treeObj.insertLevelOrder(q_arr, len(q_arr))
+    root = treeObj.insertLevelOrder(root_arr, len(root_arr))
+    subRoot = treeObj.insertLevelOrder(subRoot_arr, len(subRoot_arr))
     # Print the trees
-    p.preorderTree(p)
+    root.preorderTree(root)
     print()
-    q.preorderTree(q)
+    subRoot.preorderTree(subRoot)
     print()
     # Check if the trees are the same
-    sol = Solution()
-    print(sol.isSameTree(p, q))
+    sol_1 = Solution1()
+    print(sol_1.isSubtree(root, subRoot))
