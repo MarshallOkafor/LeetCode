@@ -3,7 +3,7 @@
 This is the solution to LeetCode problem 226: 
 invert a binary tree and return the root
 
-NB: Jump to the Solution for answer to the problem.
+NB: Jump to the Solution class for answer to the problem.
 Runtime: O(n)
 """
 

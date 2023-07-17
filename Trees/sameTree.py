@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-This is the solution to LeetCode problem 104: 
-Maximum depth of a binary tree
+This is the solution to LeetCode problem 100: 
+Check if two binary trees are thesame.
 
 NB: Jump to the Solution class for answer to the problem.
 Runtime: O(n)
@@ -18,6 +18,7 @@ class TreeNode():
     def insertLevelOrder(self, arr: list[int], num, index=0):
         """
         Util function to create the binary tree
+        num: length of the array
         """
 
         if not arr:
@@ -48,35 +49,33 @@ class TreeNode():
 
 class Solution:
 
-    def maxDepth(self, root):
-
-        # Base case
-        if not root:
-            return None
-        # Use stack approach, iterative DFS
-        stack = [[root, 1]]
-        res = 0
-        # Traverse the tree
-        while stack:
-            node, depth = stack.pop()
-            # Add the children of the node to the stack or not
-            if node:
-                res = max(res, depth)
-                stack.append([node.left, depth + 1])
-                stack.append([node.right, depth + 1])
-        # Return the max value
-        return res
+    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+        # Base cases
+        if not p and not q:
+            return True # Empty nodes are thesame
+        if (not p or not q) or (p.val != q.val):
+            return False
+        
+        # Recurse and return
+        return (self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right))
+             
+        
 
 # Driver code
 if __name__ == '__main__':
 
-    arr = [1, None, 2]
+    # Arrays
+    p_arr = [1, 2, 3]
+    q_arr = [1, 2, 3]
+    # Tree Nodes
     treeObj = TreeNode()
-    # Build the tree 
-    root = treeObj.insertLevelOrder(arr, len(arr))
-    # Print the tree in preorder 
-    root.preorderTree(root)
+    p = treeObj.insertLevelOrder(p_arr, len(p_arr))
+    q = treeObj.insertLevelOrder(q_arr, len(q_arr))
+    # Print the trees
+    p.preorderTree(p)
     print()
-    # Create a solution object
+    q.preorderTree(q)
+    print()
+    # Check if the trees are the same
     sol = Solution()
-    print('The maximum depth of the tree is', sol.maxDepth(root))
+    print(sol.isSameTree(p, q))
