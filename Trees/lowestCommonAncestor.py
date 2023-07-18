@@ -1,13 +1,11 @@
 #!/usr/bin/python3
 """
-This is the solution to LeetCode problem 572: 
-Given two binary trees, check if one is a subtree of the other.
+This is the solution to LeetCode problem 235: 
+Lowest Common Ancestor.
 
 NB: Jump to the Solution class for answer to the problem.
-Runtime: O(s*q)
+Runtime: O(log n)
 """
-# Import isSameTree as a helper function
-from sameTree import Solution
 
 class TreeNode():
 
@@ -49,37 +47,34 @@ class TreeNode():
         self.preorderTree(root.left)
         self.preorderTree(root.right)
 
-class Solution1:
+class Solution:
 
-    def isSubtree(self, root: TreeNode, subRoot: TreeNode) -> bool:
-        # Base cases
-        if not subRoot:
-            return True
-        if not root:
-            return False
-        # Check if they are same tree
-        # Call the isSameTree() helper function from the Solution class
-        sol = Solution() 
-        if sol.isSameTree(root, subRoot):
-            return True
-        # Continue to check the children of root
-        return (self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot))   
+    def lowestCommonAncestor(self, root, p, q) -> TreeNode:
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        """
+        cur = root
 
+        while cur:
+            if p.val > cur.val and q.val > cur.val:
+                cur = cur.right
+            elif p.val < cur.val and q.val < cur.val:
+                cur = cur.left
+            else:
+                return cur
+            
 # Driver code
 if __name__ == '__main__':
 
     # Arrays
-    root_arr = [3, 4, 5, 1, 2]
-    subRoot_arr = [4, 1, 2]
+    root = [3, 4, 5, 1, 2]
+    p = 2
+    q = 8
     # Tree Nodes
     treeObj = TreeNode()
-    root = treeObj.insertLevelOrder(root_arr, len(root_arr))
-    subRoot = treeObj.insertLevelOrder(subRoot_arr, len(subRoot_arr))
+    root = treeObj.insertLevelOrder(root, len(root))
     # Print the trees
     root.preorderTree(root)
     print()
-    subRoot.preorderTree(subRoot)
-    print()
-    # Check if the trees are the same
-    sol_1 = Solution1()
-    print(sol_1.isSubtree(root, subRoot))
