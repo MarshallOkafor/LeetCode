@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """
-This is the solution to LeetCode problem 235: 
+This is the solution to LeetCode problem 102: 
 Lowest Common Ancestor.
 
 NB: Jump to the Solution class for answer to the problem.
-Runtime: O(log n)
+Runtime: O(n)
 """
-
+import collections
 class TreeNode():
 
     def __init__(self, val=0, left=None, right=None):
@@ -40,8 +40,8 @@ class TreeNode():
         preorder fashion
         """
 
-        if not root:
-            return None
+        if root is None:
+            return 
         # Print the root node
         print(root.val, end=' ')
         self.preorderTree(root.left)
@@ -49,38 +49,35 @@ class TreeNode():
 
 class Solution:
 
-    def lowestCommonAncestor(self, root, p, q) -> TreeNode:
-        """
-        :type root: TreeNode
-        :type p: TreeNode
-        :type q: TreeNode
-        """
-        cur = root
-
-        while cur:
-            if p.val > cur.val and q.val > cur.val:
-                cur = cur.right
-            elif p.val < cur.val and q.val < cur.val:
-                cur = cur.left
-            else:
-                return cur
+    def levelOrder(self, root: TreeNode) -> list[list[int]]:
+        
+        # Use a queue data structure
+        q = collections.deque()
+        res = []
+        q.append(root)
+        while q:
+            q_length = len(q)
+            l = []
+            for i in range(q_length):
+                node = q.popleft()
+                if node:
+                    l.append(node.val)
+                    q.append(node.left)
+                    q.append(node.right)
+            if l:
+                res.append(l)
+        return res
             
 # Driver code
 if __name__ == '__main__':
 
     # Arrays
-    root = [6, 2, 8, 0, 4, 7, 9, None, None, 2, 5]
-    pseudo_p = 2 # This is supposed to be a TreeNode
-    pseudo_q = 8 # This is supposed to be a TreeNode
+    root = [3, 9, 20, None, None, 15, 7]
     # Tree Nodes
     treeObj = TreeNode()
     root = treeObj.insertLevelOrder(root, len(root))
-    p = root.left
-    q = root.right
-    # Print the trees
-    root.preorderTree(root)
+    treeObj.preorderTree(root)
     print()
-    # Solution object
+    # Solution
     sol = Solution()
-    lca = sol.lowestCommonAncestor(root, p, q)
-    print(lca.val)
+    print(sol.levelOrder(root))
