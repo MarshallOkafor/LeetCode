@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """
-This is the solution to LeetCode problem 102: 
+This is the solution to LeetCode problem 98: 
 Lowest Common Ancestor.
 
 NB: Jump to the Solution class for answer to the problem.
 Runtime: O(n)
 """
-import collections
+
 class TreeNode():
 
     def __init__(self, val=0, left=None, right=None):
@@ -40,7 +40,7 @@ class TreeNode():
         preorder fashion
         """
 
-        if root is None:
+        if not root:
             return 
         # Print the root node
         print(root.val, end=' ')
@@ -48,36 +48,43 @@ class TreeNode():
         self.preorderTree(root.right)
 
 class Solution:
+    
+    def isValidBST(self, root: TreeNode) -> bool:
 
-    def levelOrder(self, root: TreeNode) -> list[list[int]]:
+        def valid(node, left, right):
+            """
+            For valid BST, each node has to respect its left and right 
+            boundaries. The highest right boundary value of the left 
+            subtree is at the root node. While the lowest left boundary
+            of the right subtree is at the root node.
+            """
+
+            if not node:
+                return True
+            if not (node.val > left and node.val < right):
+                return False
+            # Recursively evaluate the subtrees while respecting the boundaries
+            return (valid(node.left, left, node.val) and 
+                    valid(node.right, node.val, right))
         
-        # Use a queue data structure
-        q = collections.deque()
-        res = []
-        q.append(root)
-        while q:
-            q_length = len(q)
-            l = []
-            for i in range(q_length):
-                node = q.popleft()
-                if node:
-                    l.append(node.val)
-                    q.append(node.left)
-                    q.append(node.right)
-            if l:
-                res.append(l)
-        return res
-            
+        return valid(root, float('-inf'), float('inf'))
+
 # Driver code
 if __name__ == '__main__':
 
     # Arrays
-    root = [3, 9, 20, None, None, 15, 7]
-    # Tree Nodes
+    #root = [2, 1, 3]
+    root2 = [5, 1, 4, None, None, 3, 6]
+    # Build the tree
     treeObj = TreeNode()
-    root = treeObj.insertLevelOrder(root, len(root))
-    treeObj.preorderTree(root)
+    #root = treeObj.insertLevelOrder(root, len(root))
+    root2 = treeObj.insertLevelOrder(root2, len(root2))
+    # Print the trees
+    #root.preorderTree(root)
+    #print()
+    root2.preorderTree(root2)
     print()
-    # Solution
+    # Check if BST
     sol = Solution()
-    print(sol.levelOrder(root))
+    #print(sol.isValidBST(root))
+    print(sol.isValidBST(root2))
