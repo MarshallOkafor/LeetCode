@@ -3,7 +3,7 @@
 This is the solution to LeetCode problem 297: 
 Serialize and Deserialize Binary Tree.
 
-Runtime: O(n) + O(n)
+Runtime: O(n) + O(n) => for the serialization and deseriaization
 """
 
 class TreeNode:
