@@ -4,6 +4,8 @@ This is the solution to LeetCode problem 323:
 
 Given a graph of n nodes, return the number of 
 connected components.
+
+Runtime: O(E)
 """
 
 class Solution:
