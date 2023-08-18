@@ -1,11 +1,13 @@
 """
+This is the solution to LeetCode problem 300:
+
 Given an integer array nums, return the length of the longest
 increasing subsequence.
 
 This is part of DP programming approach.
 
-Runtime: O(n)
-Space: O(1)
+Runtime: O(n^2)
+Space: O(n)
 """
 
 class Solution:
