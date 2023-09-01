@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 """
-This is the solution to LeetCode problem 920:
+This is the solution to LeetCode problem 919:
 
 Given an array of meeting time intervals consisting 
 of start and end times [[s1,e1],[s2,e2],...] (si < ei), 
-determine if a person could attend all meetings.
+find the minimum number of conference rooms required.
 
 Runtime: O(nlogn)
+Memory: O(n)
 """
 
 class Intervals:
@@ -28,22 +29,28 @@ class Intervals:
     
 class Solution:
 
-    def canAttendMeetings(self, intervals):
+    def minMeetingRooms(self, intervals):
         """
-        :type intervals: list[tuple(int)]
-        :rtype: bool
+        :type intervals: list[Intervals_obj]
+        :rtype: int
         """
 
-        intervals.sort(key= lambda i : i.start)
+        start = sorted([i.start for i in intervals])
+        end = sorted([i.end for i in intervals])
+        res, count = 0, 0
+        s, e = 0, 0
 
-        for i in range(1, len(intervals)):
-            i1 = intervals[i-1]
-            i2 = intervals[i]
+        while s < len(intervals):
+            if start[s] < end[e]:
+                s += 1
+                count += 1
+            else:
+                e += 1
+                count -= 1
 
-            if i1.end > i2.start:
-                return False
-            
-        return True
+            res = max(res, count)
+
+        return res
     
 # Driver code
 if __name__ == '__main__':
@@ -55,4 +62,4 @@ if __name__ == '__main__':
     print(intervals)
     
     sol = Solution()
-    print(sol.canAttendMeetings(intervals))
+    print(sol.minMeetingRooms(intervals))
