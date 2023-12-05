@@ -6,7 +6,7 @@ You are given an array of strings tokens that represents an arithmetic expressio
 Reverse Polish Notation. Evaluate the expression. Return an integer that represents the 
 value of the expression.
 
-Runtime => O(1)
+Runtime => O(n)
 """
 
 class Solution:
