@@ -22,7 +22,7 @@ class Solution:
             mid = (left + right) // 2
             min_item = min(min_item, nums[mid])
 
-            if nums[mid] > nums[left]:
+            if nums[mid] >= nums[left]:
                 # Discard the left half
                 left = mid + 1
             else:
