@@ -25,10 +25,15 @@ class MedianFinder(object):
             val = -1 * heapq.heappop(self.small)
             heapq.heappush(self.large, val)
         
-        # uneven size
+        # Small is bigger than large
         if len(self.small) > len(self.large) + 1:
             val = -1 * heapq.heappop(self.small)
             heapq.heappush(self.large, val)
+
+        # Large is bigger than small
+        if len(self.large) > len(self.small) + 1:
+            val = -1 * heapq.heappop(self.large)
+            heapq.heappush(self.small, val)
 
     def findMedian(self):
         """
